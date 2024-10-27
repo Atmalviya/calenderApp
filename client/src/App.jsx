@@ -1,9 +1,21 @@
-import React from 'react';
+import * as React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { NextUIProvider } from "@nextui-org/react";
+import { HomePage } from "./pages/Home";
+import { Layout } from "./components/Layout";
 
-const App = () => (
-  <div>
-    Hello world
-  </div>
-);
 
-export default App;
+
+export default function App() {
+  return (
+    <NextUIProvider>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </NextUIProvider>
+  );
+}

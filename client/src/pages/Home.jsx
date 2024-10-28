@@ -3,6 +3,7 @@
 import { Calendar } from "@nextui-org/calendar";
 import { EventList } from "../components/EventList";
 import { useState } from "react";
+import EventForm  from "../components/EventForm";
 
 export const HomePage = () => {
     const [datePicked, setDatePicked] = useState(null);
@@ -27,7 +28,8 @@ export const HomePage = () => {
     return (
         <div className="flex h-screen p-6 bg-gray-100">
             <div className="w-full md:w-1/3 lg:w-1/4">
-                <Calendar className="rounded-lg shadow-lg bg-white border border-gray-200" onChange={setAbc} calendarWidth='512' value={datePicked} />
+                {/* <Calendar className="rounded-lg shadow-lg bg-white border border-gray-200" onChange={(e) => setDatePicked(e)} calendarWidth='512' value={datePicked} /> */}
+                <EventForm />
             </div>
             <div className="w-full md:w-2/3 lg:w-3/4 p-4 bg-white rounded-lg shadow-lg ml-4">
                 <EventList eventList={eventList} datePicked={datePicked} />

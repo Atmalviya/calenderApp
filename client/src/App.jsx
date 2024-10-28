@@ -4,6 +4,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import { HomePage } from "./pages/Home";
 import { Layout } from "./components/Layout";
 import { CalenderPage } from "./pages/CalenderPage";
+import { Navbar } from "./components/Navbar";
 
 
 
@@ -11,12 +12,12 @@ export default function App() {
   return (
     <NextUIProvider>
       <BrowserRouter>
-        <Layout>
+        {/* <Layout> */}
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/calender" element={<CalenderPage />} />
           </Routes>
-        </Layout>
+        {/* </Layout> */}
       </BrowserRouter>
     </NextUIProvider>
   );

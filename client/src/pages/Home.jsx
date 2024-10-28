@@ -4,6 +4,7 @@ import { Calendar } from "@nextui-org/calendar";
 import { EventList } from "../components/EventList";
 import { useState } from "react";
 import EventForm  from "../components/EventForm";
+import { Navbar } from "@/components/Navbar";
 
 export const HomePage = () => {
     const [datePicked, setDatePicked] = useState(null);
@@ -26,7 +27,9 @@ export const HomePage = () => {
     ];
 
     return (
-        <div className="flex h-screen p-6 bg-gray-100">
+        <>
+              <Navbar />
+        <div className="flex h-screen p-6 bg-gray-100" style={{ height: "calc(100vh - 60px)" }}>
             <div className="w-full md:w-1/3 lg:w-1/4">
                 {/* <Calendar className="rounded-lg shadow-lg bg-white border border-gray-200" onChange={(e) => setDatePicked(e)} calendarWidth='512' value={datePicked} /> */}
                 <EventForm />
@@ -35,5 +38,6 @@ export const HomePage = () => {
                 <EventList eventList={eventList} datePicked={datePicked} />
             </div>
         </div>
+        </>
     );
 };

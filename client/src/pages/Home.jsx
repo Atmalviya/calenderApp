@@ -1,17 +1,14 @@
-import { Calendar } from "@nextui-org/calendar";
 import { EventList } from "../components/EventList";
 import { useContext, useEffect, useState } from "react";
-import EventForm from "../components/EventForm";
 import { Navbar } from "@/components/Navbar";
 import { EventModal } from "@/components/EventModal";
 import { SmallCalendar } from "@/components/SmallCalendar";
-import { Sidebar } from "@/components/Sidebar";
 import { CreateEventButton } from "@/components/CreateEventButton";
 import GlobalContext from "@/context/globalContext";
 import dayjs from "dayjs";
 
 export const HomePage = () => {
-  const { setSelectedEvent, savedEvents } = useContext(GlobalContext);
+  const { savedEvents } = useContext(GlobalContext);
   const { showEventModal } = useContext(GlobalContext);
   const [formattedEvents, setFormattedEvents] = useState([]);
 
@@ -20,7 +17,6 @@ export const HomePage = () => {
       ...event,
       day: dayjs(Number(event.day)).format("DD-MM-YYYY"), // format the date
     }));
-    console.log({ data });
     setFormattedEvents(data);
   }, [savedEvents]);
 

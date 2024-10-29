@@ -6,8 +6,8 @@ import ContextWrapper from './context/ContextWrapper'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ContextWrapper>
+    {/* <ContextWrapper> */}
       <App />
-    </ContextWrapper>
+    {/* </ContextWrapper> */}
   </StrictMode>,
 )

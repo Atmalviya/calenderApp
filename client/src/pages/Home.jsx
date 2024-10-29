@@ -1,43 +1,49 @@
-// HomePage.jsx
 
 import { Calendar } from "@nextui-org/calendar";
 import { EventList } from "../components/EventList";
-import { useState } from "react";
-import EventForm  from "../components/EventForm";
+import { useContext, useEffect, useState } from "react";
+import EventForm from "../components/EventForm";
 import { Navbar } from "@/components/Navbar";
+import { EventModal } from "@/components/EventModal";
+import { SmallCalendar } from "@/components/SmallCalendar";
+import { Sidebar } from "@/components/Sidebar";
+import { CreateEventButton } from "@/components/CreateEventButton";
+import GlobalContext from "@/context/globalContext";
+import dayjs from "dayjs";
 
 export const HomePage = () => {
+    
+    const { setSelectedEvent, savedEvents } = useContext(GlobalContext)
     const [datePicked, setDatePicked] = useState(null);
-    const setAbc = (e) => {
-        console.log(e)
-        setDatePicked(e)    
-    }
-    console.log(datePicked)
-    const eventList = [
-        {
-            title: "Meet with CTO",
-            description: "This meeting is about future plans.",
-            eventDate: '2024-10-20 21:02:00',
-        },
-        {
-            title: "Seminar",
-            description: "This seminar is about future plans.",
-            eventDate: '2024-10-20 21:02:00',
-        },
-    ];
+    const [formattedEvents, setFormattedEvents] = useState([]);
+
+    useEffect(() => {
+        const data = savedEvents.map(event => ({
+            ...event,
+            day: dayjs(Number(event.day)).format("DD-MM-YYYY") // format the date
+        }));
+        setFormattedEvents(data);
+        
+    }, [savedEvents])
+
+  const { showEventModal } = useContext(GlobalContext)
 
     return (
         <>
-              <Navbar />
-        <div className="flex h-screen p-6 bg-gray-100" style={{ height: "calc(100vh - 60px)" }}>
-            <div className="w-full md:w-1/3 lg:w-1/4">
-                {/* <Calendar className="rounded-lg shadow-lg bg-white border border-gray-200" onChange={(e) => setDatePicked(e)} calendarWidth='512' value={datePicked} /> */}
-                <EventForm />
+            { showEventModal && <EventModal />}
+            <Navbar />
+            <div className="flex h-screen p-6 bg-gray-100" style={{ height: "calc(100vh - 60px)" }}>
+                <div className="w-full md:w-1/3 lg:w-1/4">
+
+                    <aside className="">
+                        <CreateEventButton />
+                        <SmallCalendar />
+                    </aside>
+                </div>
+                <div className="w-full md:w-2/3 lg:w-3/4 p-4 bg-white rounded-lg shadow-lg ml-4">
+                    <EventList eventList={formattedEvents} datePicked={datePicked} />
+                </div>
             </div>
-            <div className="w-full md:w-2/3 lg:w-3/4 p-4 bg-white rounded-lg shadow-lg ml-4">
-                <EventList eventList={eventList} datePicked={datePicked} />
-            </div>
-        </div>
         </>
     );
 };

@@ -1,8 +1,8 @@
 // src/pages/Register.js
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from '../api/api'; // Adjust the import according to your API setup
+import api from '../api/api'; 
 
 export const Register = () => {
   const [email, setEmail] = useState("");
@@ -12,21 +12,23 @@ export const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    setMessage(''); // Clear any previous messages
+    setMessage(''); 
+
+    if (!email || !password) {
+      setMessage('Email and password cannot be empty.');
+      return;
+    }
 
     try {
-      // Make an API call to register the user
       const response = await api.post('/auth/register', { email, password });
       
       if (response.status === 201) {
-        // Registration successful
         setMessage('User registered successfully! Please log in.');
         setTimeout(() => {
-          navigate("/login"); // Redirect to login after a short delay
+          navigate("/login"); 
         }, 2000);
       }
     } catch (err) {
-      // Handle error
       console.error(err);
       setMessage('Error registering user. Please try again.');
     }
@@ -75,7 +77,7 @@ export const Register = () => {
             </div>
           </div>
           <div className="space-y-2">
-            {message && <p className="text-center text-sm dark:text-gray-600">{message}</p>}
+            {message && <p className="text-center text-sm text-red-600">{message}</p>}
             <div>
               <Button
                 type="submit"
